@@ -1,4 +1,6 @@
 <script setup>
+import TheologianCard from "@/components/theologianCard.vue";
+
 const theologians = [
   {
     "name":"Martin Luther",
@@ -6,15 +8,17 @@ const theologians = [
     "death":"1546",
     "location":"Wittenberg",
     "occupation":"Professor of Theology",
-    "link":"https://en.wikipedia.org/wiki/Martin_Luther"
+    "link":"https://en.wikipedia.org/wiki/Martin_Luther",
+    "image":"Luther.png"
   },
   {
     "name":"Philipp Melanchthon",
     "birth":"1497",
     "death":"1560",
     "location":"Wittenberg",
-    "occupation":"Professor of Greek and Reformer",
-    "link":"https://en.wikipedia.org/wiki/Philipp_Melanchthon"
+    "occupation":"Professor of Greek",
+    "link":"https://en.wikipedia.org/wiki/Philipp_Melanchthon",
+    "image":""
   },
   {
     "name":"Martin Chemnitz",
@@ -22,7 +26,8 @@ const theologians = [
     "death":"1586",
     "location":"Braunschweig",
     "occupation":"Theologian and Superintendent",
-    "link":"https://en.wikipedia.org/wiki/Martin_Chemnitz"
+    "link":"https://en.wikipedia.org/wiki/Martin_Chemnitz",
+    "image":""
   },
   {
     "name":"Johann Gerhard",
@@ -30,7 +35,8 @@ const theologians = [
     "death":"1637",
     "location":"Jena",
     "occupation":"Professor of Theology",
-    "link":"https://en.wikipedia.org/wiki/Johann_Gerhard"
+    "link":"https://en.wikipedia.org/wiki/Johann_Gerhard",
+    "image":""
   },
   {
     "name":"Aegidius Hunnius",
@@ -38,7 +44,8 @@ const theologians = [
     "death":"1603",
     "location":"Wittenberg",
     "occupation":"Professor of Theology",
-    "link":"https://en.wikipedia.org/wiki/Aegidius_Hunnius"
+    "link":"https://en.wikipedia.org/wiki/Aegidius_Hunnius",
+    "image":""
   },
   {
     "name":"Leonhard Hutter",
@@ -46,7 +53,8 @@ const theologians = [
     "death":"1616",
     "location":"Wittenberg",
     "occupation":"Professor of Theology",
-    "link":"https://en.wikipedia.org/wiki/Leonhard_Hutter"
+    "link":"https://en.wikipedia.org/wiki/Leonhard_Hutter",
+    "image":""
   },
   {
     "name":"Abraham Calov",
@@ -54,7 +62,8 @@ const theologians = [
     "death":"1686",
     "location":"Wittenberg",
     "occupation":"Professor of Theology",
-    "link":"https://en.wikipedia.org/wiki/Abraham_Calovius"
+    "link":"https://en.wikipedia.org/wiki/Abraham_Calovius",
+    "image":""
   },
   {
     "name":"Johann Franz Buddeus",
@@ -62,7 +71,8 @@ const theologians = [
     "death":"1729",
     "location":"Jena",
     "occupation":"Professor of Theology",
-    "link":"https://en.wikipedia.org/wiki/Johann_Franz_Buddeus"
+    "link":"https://en.wikipedia.org/wiki/Johann_Franz_Buddeus",
+    "image":""
   },
   {
     "name":"Carl Ferdinand Wilhelm Walther",
@@ -70,13 +80,31 @@ const theologians = [
     "death":"1887",
     "location":"St. Louis",
     "occupation":"Pastor and Theologian",
-    "link":"https://en.wikipedia.org/wiki/C._F._W._Walther"
+    "link":"https://en.wikipedia.org/wiki/C._F._W._Walther",
+    "image":""
   }
 ]
 
+function gotoWiki(link) {
+  window.open(link, "_blank")
+}
 </script>
 
 <template>
-
+<v-container class="grid">
+  <v-row>
+    <v-col cols="4" v-for="theologian in theologians" :key="theologian.name">
+    <TheologianCard
+      :name="theologian.name"
+      :birth="theologian.birth"
+      :death="theologian.death"
+      :location="theologian.location"
+      :occupation="theologian.occupation"
+      :image="theologian.image"
+      :link="theologian.link"
+    @goto-wiki="gotoWiki(theologian.link)"/>
+    </v-col>
+  </v-row>
+</v-container>
 </template>
 

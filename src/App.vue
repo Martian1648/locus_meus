@@ -2,10 +2,12 @@
 import {ref, computed} from 'vue';
 import home from './components/home.vue'
 import about from './components/about.vue'
+import theologians from "@/components/theologians.vue";
 
 const routes = {
   '/': home,
   '/about': about,
+  '/theologians': theologians,
 }
 const currentPath = ref(window.location.hash)
 
@@ -29,6 +31,12 @@ const navItems = [
     link: '#/about',
     icon: 'mdi-information',
     show:false,
+  },
+  {
+    title: 'Theologians',
+    link: '#/theologians',
+    icon: 'mdi-crowd',
+    show:false,
   }
 ]
 
@@ -36,7 +44,7 @@ const showItems = ref(false)
 </script>
 
 <template>
-  <v-app>
+  <v-app theme="dark">
 <!--  <nav>-->
 <!--    <a href="#/">Home</a>-->
 <!--    <a href="#/about">About</a>-->
