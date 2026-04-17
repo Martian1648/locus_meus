@@ -1,5 +1,6 @@
 <script setup>
 const props =defineProps({
+  id:{type: Number, required: true},
   name:{type:String,required: true},
   birth:{type:String,required: true},
   death:{type:String,required: true},
