@@ -11,7 +11,7 @@ async function loadTheologians() {
   error.value = "";
 
   try {
-    const response = await fetch("http://localhost:3000/authors")
+    const response = await fetch("/api/authors")
     if(!response.ok) {
       throw new Error('failed to load authors')
     }
