@@ -1,5 +1,4 @@
 <script setup >
-import {pl} from "vuetify/locale";
 
 const toGo = [
   {
@@ -8,27 +7,33 @@ const toGo = [
     desc:"Read the Lutheran Confessions, those symbols that accurately" +
         " exposit the Christian faith according to the Scriptures, and thus" +
         " set the borders of orthodoxy.",
-    link:"/",
+    link:"https://bookofconcord.org/",
     position: "center 7%"
   },
   {
-    title:"Translated Works",
+    title:"Documents",
     img: "Jerome.jpg",
-    desc:"The Lutheran dogmatic tradition is filled with valuable works, " +
-        "some of which have been translated (professionally or otherwise) into" +
-        " english.",
-    link:"/",
+    desc:"These are all the documents, translated or otherwise, available to be read.",
+    link:"#/documents",
     position: "center 20%"
   },
   {
-    title:"Untranslated Works",
+    title:"Your Library",
     img: "Templum.jpg",
-    desc:"Many important works from our theologians are still found only in Latin or German, nevertheless " +
-        "they can be valuable to look at for those who can read those languages.",
-    link:"/",
+    desc:"These are the books you have set aside",
+    link:"#/library",
     position: "center 7%"
   }
 ]
+
+function openLink(link, internal) {
+  if (internal) {
+    window.location.hash = link;
+  }
+  else{
+    window.open(link, "_blank")
+  }
+}
 </script>
 
 <template>
@@ -54,7 +59,8 @@ prev-icon="mdi-menu-left">
           <v-row>
             <v-col>{{place.desc}}</v-col>
             <v-col>
-            <v-chip variant="outlined" link ripple=false append-icon="mdi-arrow-top-right">
+            <v-chip variant="outlined" link ripple=false append-icon="mdi-arrow-top-right"
+            @click="openLink(place.link, false)">
               Go to {{place.title}}
             </v-chip></v-col>
           </v-row>

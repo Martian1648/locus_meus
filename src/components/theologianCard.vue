@@ -13,15 +13,9 @@ const emit = defineEmits(['goto-wiki'])
 </script>
 
 <template>
-
+  <v-defaults-provider :defaults="{VIcon:{color:'green-darken-3'}}">
 <v-card hover class="w-full" link  @click="emit('goto-wiki')" append-icon="mdi-arrow-top-right"
 >
-
-
-
-
-
-
 <v-card-title class="text-wrap" >{{name}}
  </v-card-title>
   <v-card-subtitle class="text-wrap">{{occupation}}, {{location}}</v-card-subtitle>
@@ -31,7 +25,5 @@ const emit = defineEmits(['goto-wiki'])
 
 </v-card>
 
-
+</v-defaults-provider>
 </template>
-
-

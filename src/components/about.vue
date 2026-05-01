@@ -1,99 +1,90 @@
-<script setup lang="ts">
+<script setup>
+const imageHeight = 2277
+const sliceHeight = imageHeight / 4
+
+const panels = [
+  {
+    title: 'What is the point (of this site)?',
+    text: 'To provide a convenient hub for the common folk to read their favorite Lutheran theologians',
+  },
+  {
+    title: 'Why?',
+    text: 'Mostly because I want to pass my class',
+  },
+  {
+    title: 'Who brought this site into being?',
+    text: 'Remotely, God, as he is the first mover of all things. However, proximately, that would be me, myself, & I',
+  },
+  {
+    title: 'About the creator',
+    text: 'I am absolutely not putting that on the world wide web.',
+  },
+]
 </script>
 
 <template>
-  <h1 class="bg-grey-darken-4 text-h1 text-center">De Hoc Sito</h1>
-  <v-expansion-panels variant="accordion" class="bg-grey-darken-4">
+  <h1 class="bg-grey-darken-4 text-h2 text-center pa-3">About</h1>
 
-    <v-expansion-panel class="bg-grey-darken-4" hide-actions>
+  <v-expansion-panels variant="accordion" class="bg-grey-darken-4" flat tile>
+    <v-expansion-panel
+        v-for="(panel, index) in panels"
+        :key="panel.title"
+        class="bg-grey-darken-4"
+        hide-actions
+    >
       <template #title>
-        <v-img
-            src="Schmidt.jpg"
-            height="325.128"
-            position="center 0%"
-            cover
-            class="d-flex align-center px-4 text-white"
-            image-class="darken"
+        <div
+            class="image-slice"
+            :style="{
+            height: `${sliceHeight}px`,
+            backgroundPositionY: `-${index * sliceHeight}px`
+          }"
         >
-
-          <div class="text-center text-h2 font-weight-bold">Propter quid?</div>
-        </v-img>
+          <div class="text-center text-h2 font-weight-bold">
+            {{ panel.title }}
+          </div>
+        </div>
       </template>
 
       <template #text>
         <v-sheet color="grey-darken-3" class="pa-4">
-          The proximate external final cause (id est the "propter quid") is that I am doing this for a class.
+          {{ panel.text }}
         </v-sheet>
       </template>
     </v-expansion-panel>
-
-
-    <v-expansion-panel  class="bg-grey-darken-4" hide-actions>
-      <template #title>
-        <v-img
-            src="Schmidt.jpg"
-            height="325.128"
-            position="center 33%"
-            cover
-            class="d-flex align-center   text-white "
-        >
-          <div class="text-center text-h2 font-weight-bold">Cur?</div>
-        </v-img>
-      </template>
-
-      <template #text>
-        <v-sheet color="grey-darken-3" class="pa-4 ">
-          The proximate internal final cause (id est the "cur") is that I have an enormous love for theology and for the works that have been translated, and I wanted them to be shown.
-        </v-sheet>
-      </template>
-    </v-expansion-panel>
-
-
-    <v-expansion-panel class="bg-grey-darken-4" hide-actions>
-      <template #title>
-        <v-img
-            src="Schmidt.jpg"
-            height="325.128"
-            position="center 66%"
-            cover
-            class="d-flex align-center px-4 text-white"
-        >
-          <div class="text-center text-h2 font-weight-bold">Quae est causa efficiens?</div>
-        </v-img>
-      </template>
-
-      <template #text>
-        <v-sheet color="grey-darken-3" class="pa-4">
-          Remotely, God, as he is the first mover of all things. However, proximately, the efficient cause is me, myself, & I
-        </v-sheet>
-      </template>
-    </v-expansion-panel>
-
-
-    <v-expansion-panel class="bg-grey-darken-4" hide-actions>
-      <template #title>
-        <v-img
-            src="Schmidt.jpg"
-            height="325.128"
-            width="fit-content"
-            position="center 100%"
-            cover
-            class="d-flex align-center px-4 text-white"
-        >
-          <div class="text-center text-h2 font-weight-bold">De me</div>
-        </v-img>
-      </template>
-
-      <template #text>
-        <v-sheet color="grey-darken-3" class="pa-4">
-          I am absolutely not putting that on the world wide web.
-        </v-sheet>
-      </template>
-    </v-expansion-panel>
-
   </v-expansion-panels>
-
 </template>
 
+<style scoped>
+/*I did use the help of AI for some of this styling*/
+.image-slice {
+  width: 100%;
+  background-image:
+      linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+      url("/Schmidt.jpg");
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-size: auto 2277px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
 
+:deep(.v-expansion-panel) {
+  margin-top: 0 !important;
+}
 
+:deep(.v-expansion-panel::after) {
+  display: none;
+}
+
+:deep(.v-expansion-panel-title) {
+  padding: 0 !important;
+  min-height: unset !important;
+}
+
+:deep(.v-expansion-panel-title__overlay) {
+  display: none;
+}
+</style>

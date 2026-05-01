@@ -1,7 +1,8 @@
 <script setup>
 import TheologianCard from "@/components/theologianCard.vue";
 import {onMounted, ref} from 'vue';
-
+const real = "/api/authors"
+const test = "http://localhost:3000"
 const theologians = ref([])
 const loading = ref(true)
 const error = ref('')
@@ -28,8 +29,8 @@ async function loadTheologians() {
       image: theo.image,
     }))
   }
-  catch(error) {
-    error.value = error.message || "Something went wrong";
+  catch(err) {
+    error.value = "Something went wrong";
   }
   finally {
     loading.value = false;
@@ -43,6 +44,15 @@ onMounted(() => {loadTheologians()})
 </script>
 
 <template>
+  <h1 class="bg-grey-darken-4 text-h2 text-center pa-3">Authors</h1>
+  <v-alert
+      v-if="error"
+      type="error"
+      variant="tonal"
+      class="mb-4"
+  >
+    {{ error }}
+  </v-alert>
 <v-container class="grid">
   <v-row>
     <v-col cols="4" v-for="theologian in theologians" :key="theologian.name">
@@ -60,4 +70,3 @@ onMounted(() => {loadTheologians()})
   </v-row>
 </v-container>
 </template>
-

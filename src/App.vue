@@ -1,13 +1,20 @@
 <script setup>
-import {ref, computed} from 'vue';
+import {ref, computed, onMounted} from 'vue';
 import home from './components/home.vue'
 import about from './components/about.vue'
 import theologians from "@/components/theologians.vue";
+import documents from "@/components/documents.vue";
+import login from "@/components/login.vue";
+import library from "@/components/library.vue";
+import {getUser} from "@/misc.js";
 
 const routes = {
   '/': home,
   '/about': about,
   '/theologians': theologians,
+  '/documents': documents,
+  '/login': login,
+  '/library': library,
 }
 const currentPath = ref(window.location.hash)
 
@@ -16,31 +23,38 @@ window.addEventListener('hashchange', e => {
 })
 
 const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || '/'] || NotFound
+  return routes[currentPath.value.slice(1) || '/']
 })
 
-const navItems = [
-  {
-    title: 'Home',
-    link: '#/',
-    icon: 'mdi-home',
-    show:false,
-  },
-  {
-    title: 'About',
-    link: '#/about',
-    icon: 'mdi-information',
-    show:false,
-  },
-  {
-    title: 'Theologians',
-    link: '#/theologians',
-    icon: 'mdi-crowd',
-    show:false,
+const navItems = computed(() => {
+  const items = [
+    { title: 'Home', link: '#/', icon: 'mdi-home' },
+    { title: 'About', link: '#/about', icon: 'mdi-information' },
+    { title: 'Theologians', link: '#/theologians', icon: 'mdi-crowd' },
+    { title: 'Documents', link: '#/documents', icon: 'mdi-file-document-multiple-outline' },
+  ];
+  if (isLoggedIn.value) {
+    items.push({ title: 'Library', link: '#/library', icon: 'mdi-bookshelf' });
+  } else {
+    items.push({ title: 'Login', link: '#/login', icon: 'mdi-login' });
   }
-]
+  return items;
+});
 
+function logout(){
+  isLoggedIn.value = false;
+  localStorage.removeItem('user');
+  window.location.reload();
+}
+const isLoggedIn = ref(false);
+const user = ref(getUser());
 const showItems = ref(false)
+onMounted(()=> {
+  if(user.value){
+    isLoggedIn.value = true;
+
+  }
+})
 </script>
 
 <template>
@@ -59,17 +73,24 @@ const showItems = ref(false)
 
     <v-divider></v-divider>
     <div v-for="item in navItems" :key="item.title">
-      <v-list-item link :href="item.link" >
+      <v-list-item link :href="item.link"  >
         <v-row>
           <v-col>
         <v-icon >{{ item.icon }}</v-icon>
           </v-col>
           <v-col>
-            <v-list-item-title v-if="showItems">{{ item.title }}</v-list-item-title>
+            <v-list-item-title v-if="showItems" >{{ item.title }}</v-list-item-title>
           </v-col>
         </v-row>
       </v-list-item>
     </div>
+    <template #append>
+      <div class="d-flex justify-center pa-4">
+        <v-btn @click="logout" v-if="isLoggedIn" variant="outlined">
+          Logout
+        </v-btn>
+      </div>
+    </template>
   </v-navigation-drawer>
 
   <v-main>
