@@ -48,7 +48,6 @@ function logout(){
 }
 const isLoggedIn = ref(false);
 const user = ref(getUser());
-const showItems = ref(false)
 onMounted(()=> {
   if(user.value){
     isLoggedIn.value = true;
@@ -65,8 +64,7 @@ onMounted(()=> {
 <!--  </nav>-->
 <!--  <h1>Locus Meus</h1>-->
   <v-navigation-drawer permanent width="200"
-                       @mouseenter="showItems = true"
-  @mouseleave="showItems = false"
+
   color="green-darken-3" class="text-blue-grey-lighten-5">
 
     <v-list-item-title  class="text-center text-h6" >LuTheologus</v-list-item-title>
@@ -79,7 +77,7 @@ onMounted(()=> {
         <v-icon >{{ item.icon }}</v-icon>
           </v-col>
           <v-col>
-            <v-list-item-title v-if="showItems" >{{ item.title }}</v-list-item-title>
+            <v-list-item-title  >{{ item.title }}</v-list-item-title>
           </v-col>
         </v-row>
       </v-list-item>
